@@ -18,7 +18,7 @@
 // @downloadURL https://raw.githubusercontent.com/michalpawl/WikiLang/master/wikilang.user.js
 // @updateURL   https://raw.githubusercontent.com/michalpawl/WikiLang/master/wikilang.user.js
 
-// @version     1.0.10
+// @version     1.0.11
 // ==/UserScript==
 
 /*
