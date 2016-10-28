@@ -10,29 +10,6 @@
 // @grant       GM_setValue
 // @grant       GM_registerMenuCommand
 
-// @include     *.wiki*.org/*
-// @include     *.wiki*.org%2F*
-// @include     *.wiktionary.org/*
-// @include     *.wiktionary.org%2F*
-
-// @downloadURL https://raw.githubusercontent.com/michalpawl/WikiLang/master/wikilang.user.js
-// @updateURL   https://raw.githubusercontent.com/michalpawl/WikiLang/master/wikilang.user.js
-
-// @version     1.0.10
-// ==/UserScript==
-
-/*
-  This script may activate on pages that it is not made for, such as
-  google search results pages (for example searching for
-  ".wiktionary.org/" may trigger it). Although, even if it does activate,
-  it should not do any harm, since it only modifies list items of very
-  specific classes. If You are concerned about running it on pages it is not
-  designed for, You can replace the @inclide rules with the following, more
-  strict, @match rules. Please note, that the @match rules below, will not
-  allow this script to work on Google-cached Wikimedia pages or when accessing
-  Wikimedia pages trough a web proxy.
-*/
-
 // @match       *://*.wikipedia.org/*
 // @match       *://*.wiktionary.org/*
 // @match       *://*.wikiquote.org/*
@@ -42,6 +19,15 @@
 // @match       *://*.wikiversity.org/*
 // @match       *://*.wikivoyage.org/*
 // @match       *://*.wikidata.org/*
+// @match       *://*.wikimedia.org/*
+// @match       *://*.mediawiki.org/*
+
+// @downloadURL https://raw.githubusercontent.com/michalpawl/WikiLang/master/wikilang.user.js
+// @updateURL   https://raw.githubusercontent.com/michalpawl/WikiLang/master/wikilang.user.js
+
+// @version     1.0.11
+// ==/UserScript==
+
 
 
 const namelist = ['- Select language -','Abkhazian','Achinese','Afar','Afrikaans','Akan','Albanian','Alemannisch','Amharic','Arabic','Aragonese','Aramaic','Armenian','Aromanian','Arpitan','Assamese','Asturian','Avaric','Aymara','Azerbaijani','Bambara','Banjar','Basa Banyumasan','Bashkir','Basque','Bavarian','Belarusian','Bengali','Bhojpuri','Bikol Central','Bishnupriya','Bislama','Bosnian','Breton','Buginese','Bulgarian','Burmese','Buryat','Cantonese','Catalan','Cebuano','Central Kurdish','Chamorro','Chavacanode Zamboanga','Chechen','Cherokee','Cheyenne','Chinese','Chinese (Min Nan)','Choctaw','Church Slavic','Chuvash','Classical Chinese','Colognian','Cornish','Corsican','Cree','Creek','Crimean Turkish','Croatian','Czech','Danish','Divehi','Dutch','Dzongkha','Eastern Mari','Egyptian Arabic','Emiliano-Romagnolo','English','Erzya','Esperanto','Estonian','Ewe','Extremaduran','Faroese','Fiji Hindi','Fijian','Finnish','French','Friulian','Fulah','Gagauz','Galician','Gan Chinese','Ganda','Georgian','German','Gilaki','Goan Konkani','Gothic','Greek','Guarani','Gujarati','Haitian','Hakka Chinese','Hausa','Hawaiian','Hebrew','Herero','Hindi','Hiri Motu','Hungarian','Icelandic','Ido','Igbo','Iloko','Indonesian','Interlingua','Interlingue','Inuktitut','Inupiaq','Irish','Italian','Japanese','Javanese','Kabardian','Kabyle','Kalaallisut','Kalmyk','Kannada','Kanuri','Karachay-Balkar','Kara-Kalpak','Kashmiri','Kashubian','Kazakh','Khmer','Kikuyu','Kinyarwanda','Komi','Komi-Permyak','Kongo','Korean','Kuanyama','Kurdish','Kyrgyz','Ladino','Lak','Lao','Latgalian','Latin','Latvian','Lezghian','Ligurian','Limburgish','Lingala','Lithuanian','Lojban','Lombard','Low German','Low Saxon (Netherlands)','Lower Sorbian','Luxembourgish','Macedonian','Maithili','Malagasy','Malay','Malayalam','Maltese','Manx','Maori','Marathi','Marshallese','Mazanderani','Min Dong Chinese','Minangkabau','Mingrelian','Mirandese','Moksha','Moldovan','Mongolian','Nahuatl','Nauru','Navajo','Ndonga','Neapolitan','Nepali','Newari','Norfuk/Pitkern','Northern Frisian','Northern Luri','Northern Sami','Northern Sotho','Norwegian','Norwegian Nynorsk','Nouormand','Novial','Nyanja','Occitan','Old English','Oriya','Oromo','Ossetic','Palatine German','Pali','Pampanga','Pangasinan','Papiamento','Pashto','Pennsylvania German','Persian','Picard','Piedmontese','Polish','Pontic','Portuguese','Punjabi','Quechua','Romani','Romanian','Romansh','Rundi','Russian','Rusyn','Sakha','Samoan','Samogitian','Sango','Sanskrit','Sardinian','Saterland Frisian','Scots','Scottish Gaelic','Serbian','Serbo-Croatian','Shona','Sichuan Yi','Sicilian','Silesian','Simple English','Sindhi','Sinhala','Slovak','Slovenian','Somali','South Azerbaijani','Southern Sotho','Spanish','Sranan Tongo','Sundanese','Swahili','Swati','Swedish','Tagalog','Tahitian','Tajik','Tamil','Tarantino','Taraskievica','Tatar','Telugu','Tetum','Thai','Tibetan','Tigrinya','Tok Pisin','Tongan','Tsonga','Tswana','Tumbuka','Turkish','Turkmen','Tuvinian','Twi','Udmurt','Ukrainian','Upper Sorbian','Urdu','Uyghur','Uzbek','Venda','Venetian','Veps','Vietnamese','Volapuk','Voro','Walloon','Waray','Welsh','West Flemish','Western Frisian','Western Mari','Western Punjabi','Wolof','Wu Chinese','Xhosa','Yiddish','Yoruba','Zazaki','Zeelandic','Zhuang','Zulu'];
@@ -53,10 +39,39 @@ const iframestyle = 'height: 75%; max-height: 440px; top: calc(50% - 215px); wid
 
 var settingsfields =
 {
+	langselect:
+	{
+		section: ['Language list', 'Choose which links to modify'],
+		type: 'select',
+		options: namelist,
+		default: namelist[0],
+	},
+    add:
+	{
+		label: 'Add to list',
+		type: 'button',
+		click: function()
+		{
+			var langs = WikiLangConfig.contentWindow.WikiLangConfig_field_languages.value.split(' ').filter(function(e){return(e&&codelist.includes(e));}).join(' ');
+			WikiLangConfig.contentWindow.WikiLangConfig_field_languages.value = langs;
+			var newlang = GetLangCode(GM_config.fields.langselect.toValue());
+			if ( !newlang )
+				alert('Please select which language to add.');
+			else if ( langs.split(' ').indexOf(newlang) >= 0 )
+				alert(GM_config.fields.langselect.toValue() + ' (' + newlang + ') is already on the list.');
+			else
+				WikiLangConfig.contentWindow.WikiLangConfig_field_languages.value += langs ? ' '+newlang : newlang;
+		},
+	},
+	languages:
+	{
+		type: 'text',
+		default: 'pl en',
+	},
 	move_to_top:
 	{
-		section: ['General', 'Set how should the links be modified'],
-		label: 'Move to top',
+		section: ['Actions', 'Set how should the links be modified'],
+		label: 'Move to top (in order as on the list above)',
 		labelPos: 'right',
 		type: 'checkbox',
 		default: true,
@@ -72,38 +87,6 @@ var settingsfields =
 	{
 		type: 'textarea',
 		default: 'font-weight: bold;\nfont-size: 120%;',
-	},
-	langselect:
-	{
-		section: ['Language list', 'Choose which links to modify'],
-		type: 'select',
-		options: namelist,
-		default: namelist[0],
-	},
-    add:
-	{
-		label: 'Add to list',
-		type: 'button',
-		click: function()
-		{
-			// I use getElementByID because I've experienced problems with builtin methods of accessing GM_Config fields
-			var langs = document.getElementById('WikiLangConfig').contentWindow.document.getElementById('WikiLangConfig_field_languages').value;
-			var newlang = GetLangCode(GM_config.fields['langselect'].toValue());
-			if ( newlang == '' )
-			{
-				alert('Please select which language to add.');
-				return;
-			}
-			if ( langs.split(' ').indexOf(newlang)<0 )
-				document.getElementById('WikiLangConfig').contentWindow.document.getElementById('WikiLangConfig_field_languages').value = langs + (langs?' ':'') + newlang;
-			else
-				alert(GM_config.fields['langselect'].toValue() + ' (' + newlang + ') is already on the list.')
-		},
-	},
-	languages:
-	{
-		type: 'text',
-		default: 'pl en',
 	},
 };
 
@@ -176,7 +159,7 @@ function apply()
 	{
 		A_selected = document.querySelectorAll(query_A);
 		for ( let i=0; i<A_selected.length; ++i )
-			A_selected[i].setAttribute('style',style);
+			A_selected[i].style = style;
 	}
 }
 
@@ -184,10 +167,9 @@ function apply()
 function openconfig()
 {
 	GM_config.open();
-	document.getElementById('WikiLangConfig').setAttribute('style',iframestyle);
+	WikiLangConfig.style = iframestyle;
 }
 
 
 GM_registerMenuCommand('WikiLang Settings', openconfig);
 apply();
-
