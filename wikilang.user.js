@@ -25,7 +25,7 @@
 // @downloadURL https://raw.githubusercontent.com/michalpawl/WikiLang/master/wikilang.user.js
 // @updateURL   https://raw.githubusercontent.com/michalpawl/WikiLang/master/wikilang.user.js
 
-// @version     1.0.11
+// @version     1.0.12
 // ==/UserScript==
 
 
@@ -135,16 +135,16 @@ function apply()
 	query_A = selector + languages[languages.length-1] + ' > A';
 	if ( GM_config.get('move_to_top') )
 	{
-		let list = document.querySelector('LI.interlanguage-link').parentNode;
+		let list = document.querySelector('LI.interlanguage-link').parentElement;
 		let elem;
 		if ( elem = document.querySelector(selector + languages[languages.length-1]) )
-			list.insertBefore(elem, list.childNodes[0]);
+			list.insertBefore(elem, list.children[0]);
 
 		for ( let i=languages.length-2; i>=0; --i )
 		{
 			query_A = selector + languages[i] + ' > A, ' + query_A;
 			if ( elem = document.querySelector(selector + languages[i]) )
-				list.insertBefore(elem, list.childNodes[0]);
+				list.insertBefore(elem, list.children[0]);
 		}
 	}
 	else
