@@ -25,16 +25,40 @@
 // @downloadURL https://raw.githubusercontent.com/michalpawl/WikiLang/master/wikilang.user.js
 // @updateURL   https://raw.githubusercontent.com/michalpawl/WikiLang/master/wikilang.user.js
 
-// @version     1.0.12
+// @version     1.0.14
 // ==/UserScript==
-
 
 
 const namelist = ['- Select language -','Abkhazian','Achinese','Afar','Afrikaans','Akan','Albanian','Alemannisch','Amharic','Arabic','Aragonese','Aramaic','Armenian','Aromanian','Arpitan','Assamese','Asturian','Avaric','Aymara','Azerbaijani','Bambara','Banjar','Basa Banyumasan','Bashkir','Basque','Bavarian','Belarusian','Bengali','Bhojpuri','Bikol Central','Bishnupriya','Bislama','Bosnian','Breton','Buginese','Bulgarian','Burmese','Buryat','Cantonese','Catalan','Cebuano','Central Kurdish','Chamorro','Chavacanode Zamboanga','Chechen','Cherokee','Cheyenne','Chinese','Chinese (Min Nan)','Choctaw','Church Slavic','Chuvash','Classical Chinese','Colognian','Cornish','Corsican','Cree','Creek','Crimean Turkish','Croatian','Czech','Danish','Divehi','Dutch','Dzongkha','Eastern Mari','Egyptian Arabic','Emiliano-Romagnolo','English','Erzya','Esperanto','Estonian','Ewe','Extremaduran','Faroese','Fiji Hindi','Fijian','Finnish','French','Friulian','Fulah','Gagauz','Galician','Gan Chinese','Ganda','Georgian','German','Gilaki','Goan Konkani','Gothic','Greek','Guarani','Gujarati','Haitian','Hakka Chinese','Hausa','Hawaiian','Hebrew','Herero','Hindi','Hiri Motu','Hungarian','Icelandic','Ido','Igbo','Iloko','Indonesian','Interlingua','Interlingue','Inuktitut','Inupiaq','Irish','Italian','Japanese','Javanese','Kabardian','Kabyle','Kalaallisut','Kalmyk','Kannada','Kanuri','Karachay-Balkar','Kara-Kalpak','Kashmiri','Kashubian','Kazakh','Khmer','Kikuyu','Kinyarwanda','Komi','Komi-Permyak','Kongo','Korean','Kuanyama','Kurdish','Kyrgyz','Ladino','Lak','Lao','Latgalian','Latin','Latvian','Lezghian','Ligurian','Limburgish','Lingala','Lithuanian','Lojban','Lombard','Low German','Low Saxon (Netherlands)','Lower Sorbian','Luxembourgish','Macedonian','Maithili','Malagasy','Malay','Malayalam','Maltese','Manx','Maori','Marathi','Marshallese','Mazanderani','Min Dong Chinese','Minangkabau','Mingrelian','Mirandese','Moksha','Moldovan','Mongolian','Nahuatl','Nauru','Navajo','Ndonga','Neapolitan','Nepali','Newari','Norfuk/Pitkern','Northern Frisian','Northern Luri','Northern Sami','Northern Sotho','Norwegian','Norwegian Nynorsk','Nouormand','Novial','Nyanja','Occitan','Old English','Oriya','Oromo','Ossetic','Palatine German','Pali','Pampanga','Pangasinan','Papiamento','Pashto','Pennsylvania German','Persian','Picard','Piedmontese','Polish','Pontic','Portuguese','Punjabi','Quechua','Romani','Romanian','Romansh','Rundi','Russian','Rusyn','Sakha','Samoan','Samogitian','Sango','Sanskrit','Sardinian','Saterland Frisian','Scots','Scottish Gaelic','Serbian','Serbo-Croatian','Shona','Sichuan Yi','Sicilian','Silesian','Simple English','Sindhi','Sinhala','Slovak','Slovenian','Somali','South Azerbaijani','Southern Sotho','Spanish','Sranan Tongo','Sundanese','Swahili','Swati','Swedish','Tagalog','Tahitian','Tajik','Tamil','Tarantino','Taraskievica','Tatar','Telugu','Tetum','Thai','Tibetan','Tigrinya','Tok Pisin','Tongan','Tsonga','Tswana','Tumbuka','Turkish','Turkmen','Tuvinian','Twi','Udmurt','Ukrainian','Upper Sorbian','Urdu','Uyghur','Uzbek','Venda','Venetian','Veps','Vietnamese','Volapuk','Voro','Walloon','Waray','Welsh','West Flemish','Western Frisian','Western Mari','Western Punjabi','Wolof','Wu Chinese','Xhosa','Yiddish','Yoruba','Zazaki','Zeelandic','Zhuang','Zulu'];
 const codelist = ['','ab','ace','aa','af','ak','sq','als','am','ar','an','arc','hy','roa-rup','frp','as','ast','av','ay','az','bm','bjn','map-bms','ba','eu','bar','be','bn','bh','bcl','bpy','bi','bs','br','bug','bg','my','bxr','zh-yue','ca','ceb','ckb','ch','cbk-zam','ce','chr','chy','zh','zh-min-nan','cho','cu','cv','zh-classical','ksh','kw','co','cr','mus','crh','hr','cs','da','dv','nl','dz','mhr','arz','eml','en','myv','eo','et','ee','ext','fo','hif','fj','fi','fr','fur','ff','gag','gl','gan','lg','ka','de','glk','gom','got','el','gn','gu','ht','hak','ha','haw','he','hz','hi','ho','hu','is','io','ig','ilo','id','ia','ie','iu','ik','ga','it','ja','jv','kbd','kab','kl','xal','kn','kr','krc','kaa','ks','csb','kk','km','ki','rw','kv','koi','kg','ko','kj','ku','ky','lad','lbe','lo','ltg','la','lv','lez','lij','li','ln','lt','jbo','lmo','nds','nds-nl','dsb','lb','mk','mai','mg','ms','ml','mt','gv','mi','mr','mh','mzn','cdo','min','xmf','mwl','mdf','mo','mn','nah','na','nv','ng','nap','ne','new','pih','frr','lrc','se','nso','no','nn','nrm','nov','ny','oc','ang','or','om','os','pfl','pi','pam','pag','pap','ps','pdc','fa','pcd','pms','pl','pnt','pt','pa','qu','rmy','ro','rm','rn','ru','rue','sah','sm','bat-smg','sg','sa','sc','stq','sco','gd','sr','sh','sn','ii','scn','szl','simple','sd','si','sk','sl','so','azb','st','es','srn','su','sw','ss','sv','tl','ty','tg','ta','roa-tara','be-x-old','tt','te','tet','th','bo','ti','tpi','to','ts','tn','tum','tr','tk','tyv','tw','udm','uk','hsb','ur','ug','uz','ve','vec','vep','vi','vo','fiu-vro','wa','war','cy','vls','fy','mrj','pnb','wo','wuu','xh','yi','yo','diq','zea','za','zu'];
 const selector = 'LI.interlanguage-link.interwiki-';
 const windowstyle = 'background-color: #d0e0ff;';
-const iframestyle = 'height: 75%; max-height: 440px; top: calc(50% - 215px); width: 300px; left: calc(50% - 150px); border: 1px solid #000; border-radius: 4px; margin: 0px; opacity: 1; overflow: auto; padding: 0px; position: fixed; z-index: 9999; display: block; right: auto; bottom: auto;';
+const framestyle = 'height: 75%; max-height: 440px; top: calc(50% - 215px); width: 300px; left: calc(50% - 150px); border: 1px solid #000; border-radius: 4px; margin: 0px; opacity: 1; overflow: auto; padding: 8px; position: fixed; z-index: 65536; display: block; right: auto; bottom: auto;';
+
+
+function makeDraggable(element, handle)
+{
+	if (!element) return;
+	var mdX = 0, mdY = 0, mdeX = 0, mdeY = 0;
+	(handle?handle:element).onmousedown = function(event)
+	{
+		this.style.MozUserSelect = 'none';
+		mdX = event.clientX;
+		mdY = event.clientY;
+		mdeX = element.offsetLeft;
+		mdeY = element.offsetTop;
+		onmouseup =()=> 
+		{
+			onmousemove = null;
+			this.style.MozUserSelect = '';
+		};
+		onmousemove = ev =>
+		{
+			element.style.left = (mdeX + ev.clientX - mdX) + "px";
+			element.style.top  = (mdeY + ev.clientY - mdY) + "px";
+		};
+	};
+}
 
 
 var settingsfields =
@@ -45,6 +69,7 @@ var settingsfields =
 		type: 'select',
 		options: namelist,
 		default: namelist[0],
+		save: false,
 	},
     add:
 	{
@@ -52,15 +77,15 @@ var settingsfields =
 		type: 'button',
 		click: function()
 		{
-			var langs = WikiLangConfig.contentWindow.WikiLangConfig_field_languages.value.split(' ').filter(function(e){return(e&&codelist.includes(e));}).join(' ');
-			WikiLangConfig.contentWindow.WikiLangConfig_field_languages.value = langs;
-			var newlang = GetLangCode(GM_config.fields.langselect.toValue());
+			const langs = WikiLangConfig_field_languages.value.split(' ').filter(function(e){return(e&&codelist.includes(e));}).join(' ');
+			WikiLangConfig_field_languages.value = langs;
+			const newlang = GetLangCode(WikiLangConfig_field_langselect.value);
 			if ( !newlang )
 				alert('Please select which language to add.');
 			else if ( langs.split(' ').indexOf(newlang) >= 0 )
-				alert(GM_config.fields.langselect.toValue() + ' (' + newlang + ') is already on the list.');
+				alert(WikiLangConfig_field_langselect.value + ' (' + newlang + ') is already on the list.');
 			else
-				WikiLangConfig.contentWindow.WikiLangConfig_field_languages.value += langs ? ' '+newlang : newlang;
+				WikiLangConfig_field_languages.value += langs ? ' '+newlang : newlang;
 		},
 	},
 	languages:
@@ -98,11 +123,17 @@ GM_config.init(
 	fields: settingsfields,
 	events:
 	{
+		open: function()
+		{
+			makeDraggable(WikiLangConfig, WikiLangConfig_header);
+			WikiLangConfig_header.style.cursor = 'move';
+		},
 		save: function()
 		{
 			apply();
 		},
 	},
+	frame: document.body.appendChild(document.createElement('div')),
 	css: '#WikiLangConfig { ' + windowstyle + ' } #WikiLangConfig_field_style { font-size: 13px; height: 6em; }',
 });
 
@@ -167,7 +198,7 @@ function apply()
 function openconfig()
 {
 	GM_config.open();
-	WikiLangConfig.style = iframestyle;
+	WikiLangConfig.style = framestyle;
 }
 
 
